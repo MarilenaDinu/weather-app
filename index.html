@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather App</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Aplicație Meteo</h1>
+  </header>
+
+  <main>
+    <form id="search-form">
+      <input type="text" id="city-input" placeholder="Introdu un oraș..." />
+      <button type="submit" id="search-btn">Caută</button>
+      <button type="button" id="location-btn">Folosește locația</button>
+    </form>
+
+    <div id="loading" class="hidden">Se încarcă...</div>
+    <div id="error" class="hidden">Eroare: Orașul nu a fost găsit.</div>
+
+    <section id="weather-display" class="hidden">
+      <h2 id="city-name">Oraș</h2>
+      <p><strong>Temperatură:</strong> <span id="temp">--</span> °C</p>
+      <p><strong>Descriere:</strong> <span id="description">--</span></p>
+      <p><strong>Umiditate:</strong> <span id="humidity">--</span>%</p>
+      <p><strong>Vânt:</strong> <span id="wind">--</span> km/h</p>
+      <p><strong>Răsărit:</strong> <span id="sunrise">--</span></p>
+      <p><strong>Apus:</strong> <span id="sunset">--</span></p>
+    </section>
+  </main>
+    <script type="module" src="app.js"></script>
+    <script type="module" src="demo.js"></script>
+</body>
+</html>

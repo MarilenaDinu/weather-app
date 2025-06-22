@@ -1,0 +1,19 @@
+# VS Code settings
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Node (în caz că adaugi ulterior npm)
+node_modules/
+
+# Logs
+*.log
+
+# Live Server cache (doar dacă apare)
+live-server.log
+
+# OS swap/cache files
+*.swp
+*.swo
