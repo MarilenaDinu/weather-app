@@ -1,21 +1,17 @@
-import { API_KEY, BASE_URL } from './config.js';
+import { BASE_URL, API_KEY } from '../config.js';
 
-const buildURL = (params) => {
-  const query = new URLSearchParams({ ...params, appid: API_KEY, units: 'metric', lang: 'ro' });
-  return `${BASE_URL}?${query.toString()}`;
+const fetchJson = async (url) => {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('Fetch error');
+  return res.json();
 };
 
-export const getCurrentWeather = async (city) => {
-  const response = await fetch(buildURL({ q: city }));
-  if (!response.ok) throw new Error('Oraș invalid sau eroare rețea');
-  return await response.json();
+export const getCurrentWeather = (city) => {
+  const url = `${BASE_URL}?q=${encodeURIComponent(city)}&units=metric&appid=${API_KEY}`;
+  return fetchJson(url);
 };
 
-export const getWeatherByCoords = async (lat, lon) => {
-  const response = await fetch(buildURL({ lat, lon }));
-  if (!response.ok) throw new Error('Coordonate invalide sau eroare rețea');
-  return await response.json();
+export const getWeatherByCoords = (lat, lon) => {
+  const url = `${BASE_URL}?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
+  return fetchJson(url);
 };
-
-
-
