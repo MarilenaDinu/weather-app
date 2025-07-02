@@ -14,12 +14,28 @@
   <main>
     <form id="search-form">
       <input type="text" id="city-input" placeholder="Introdu un oraș..." />
-      <button type="submit" id="search-btn">Caută</button>
-      <button type="button" id="location-btn">Folosește locația</button>
+      <div class="buttons-row">
+        <button type="submit" id="search-btn">Caută</button>
+        <button type="button" id="location-btn">Folosește locația</button>
+      </div>
     </form>
 
+    <section id="history-panel">
+      <h3>Istoric căutări</h3>
+      <ul id="history-list"></ul>
+      <button id="clear-history-btn">Șterge istoric</button>
+    </section>
+
+    <section id="config-panel">
+      <h4>Setări avansate</h4>
+      <label>
+        Max locații istorice:
+        <input type="number" id="max-history-input" min="1" />
+      </label>
+    </section>
+
     <div id="loading" class="hidden">Se încarcă...</div>
-    <div id="error" class="hidden">Eroare: Orașul nu a fost găsit.</div>
+    <div id="error" class="hidden"></div>
 
     <section id="weather-display" class="hidden">
       <h2 id="city-name">Oraș</h2>
@@ -31,7 +47,7 @@
       <p><strong>Apus:</strong> <span id="sunset">--</span></p>
     </section>
   </main>
-    <script type="module" src="app.js"></script>
-    <script type="module" src="demo.js"></script>
+
+  <script type="module" src="./app.js"></script>
 </body>
 </html>
