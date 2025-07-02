@@ -5,25 +5,18 @@ Aceasta permite utilizatorului să caute vremea dintr-un oraș sau să foloseasc
 
 ## 📂 Structura proiectului
 
-weather-app/
-├── index.html
-├── styles.css
-├── app.js
-├── demo.js
-├── README.md
-├── assets/
-│   └── backgrounds/
-│       ├── day-clear.jpg
-│       ├── night-clear.jpg
-│       ├── day-rain.jpg
-│       ├── night-rain.jpg
-│       ├── day-clouds.jpg
-│       ├── night-clouds.jpg
-│       └── ... (alte imagini opționale)
-├── modules/
-│   ├── ui-controller.js
-│   └── weather-service.js
-└── config.js
+/project-root
+│  
+├─ index.html
+├─ styles.css
+├─ app.js
+├─ config.js
+└─ modules
+   ├─ weather-service.js
+   ├─ ui-controller.js
+   ├─ history-service.js
+   └─ logger.js
+
 
 
 ## 🚀 Funcționalități
