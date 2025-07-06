@@ -1,6 +1,6 @@
 # 🌦️ Weather App
 
-O aplicație meteo modernă, construită cu HTML, CSS și JavaScript vanilla.  
+O aplicație meteo modernă, construită cu HTML, CSS și JavaScript.  
 Aceasta permite utilizatorului să caute vremea dintr-un oraș sau să folosească locația curentă.
 
 ## 📂 Structura proiectului
