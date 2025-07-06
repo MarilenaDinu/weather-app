@@ -5,35 +5,20 @@ Aceasta permite utilizatorului să caute vremea dintr-un oraș sau să foloseasc
 
 ## 📂 Structura proiectului
 
-weather-app/
-├── index.html
-├── styles.css
-├── app.js
-├── demo.js
-├── README.md
-├── assets/
-│   └── backgrounds/
-│       ├── day-clear.jpg
-│       ├── night-clear.jpg
-│       ├── day-rain.jpg
-│       ├── night-rain.jpg
-│       ├── day-clouds.jpg
-│       ├── night-clouds.jpg
-│       └── ... (alte imagini opționale)
-├── modules/
-│   ├── ui-controller.js
-│   └── weather-service.js
-└── config.js
-
+weather-app/ ├── index.html ├── styles.css ├── app.js ├── modules/ │ ├── config.js │ ├── weather-service.js │ └── ui-controller.js └── README.md
 
 ## 🚀 Funcționalități
 
 - Căutare meteo după oraș
 - Geolocalizare cu browser
 - Loading vizual și gestiune erori
-- Afișare: temperatură, umiditate, vânt, descriere, răsărit/apus, tara langa oras, steag tara
-- Animatii steag tara, schimbare fond functie de vreme, iconita vreme
+- Afișare: temperatură, umiditate, vânt, descriere, răsărit/apus
 - Design responsive și modern
+- Caching inteligent (în weather-service.js)
+- Debounce pentru input (în ui-controller.js)
+- Logger extins și persistent (în logger.js)
+- Benchmark-uri de performanță (în app.js)
+- Validare sistematică și fallback grațios
 
 ## 🛠️ Tehnologii
 

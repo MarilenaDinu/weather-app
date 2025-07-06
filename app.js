@@ -1,4 +1,8 @@
-import { getCurrentWeather, getWeatherByCoords } from './modules/weather-service.js';
+import {
+  getCurrentWeather,
+  getWeatherByCoords
+} from './modules/weather-service.js';
+
 import {
   elements,
   getCityInput,
@@ -8,8 +12,10 @@ import {
   showError,
   renderHistory,
   clearHistoryUI,
-  displayWeather
+  displayWeather,
+  createDebouncer
 } from './modules/ui-controller.js';
+
 import {
   getHistory,
   addToHistory,
@@ -17,18 +23,27 @@ import {
   getMaxHistory,
   setMaxHistory
 } from './modules/history-service.js';
+
 import { logInfo, logError } from './modules/logger.js';
 
-const updateHistoryUI = (h) => renderHistory(h);
+console.time('app-init');
 
+// UI Update după istoric
+const updateHistoryUI = (history) => {
+  renderHistory(history);
+};
+
+// 🧠 Căutare după nume
 const handleSearchByName = async (city) => {
   if (city.length < 2) {
     showError('Oraș invalid.');
     return;
   }
+
   clearInput();
   showLoading();
-  logInfo('Search by name', city);
+  logInfo('Cautare după nume', city);
+
   try {
     const data = await getCurrentWeather(city);
     displayWeather(data);
@@ -36,29 +51,36 @@ const handleSearchByName = async (city) => {
     updateHistoryUI(hist);
   } catch (e) {
     showError('Nu am găsit acest oraș.');
-    logError('Eroare API name', e);
+    logError('Eroare căutare oraș', e);
   } finally {
     hideLoading();
   }
 };
 
+// Submit formular
 const handleSubmit = (e) => {
   e.preventDefault();
-  handleSearchByName(getCityInput());
+  const city = getCityInput();
+  handleSearchByName(city);
 };
 
+// Istoric click
 const handleHistoryClick = (e) => {
   if (!e.target.classList.contains('history-item')) return;
-  handleSearchByName(e.target.textContent);
+  const city = e.target.textContent;
+  handleSearchByName(city);
 };
 
+// Locația curentă
 const handleLocation = () => {
   if (!navigator.geolocation) {
     showError('Geolocația nu este suportată.');
     return;
   }
+
   showLoading();
-  logInfo('Search by geolocation');
+  logInfo('Cautare după locație');
+
   navigator.geolocation.getCurrentPosition(async ({ coords }) => {
     try {
       const data = await getWeatherByCoords(coords.latitude, coords.longitude);
@@ -67,19 +89,20 @@ const handleLocation = () => {
       updateHistoryUI(hist);
     } catch (e) {
       showError('Eroare la determinarea locației.');
-      logError('Eroare API coords', e);
+      logError('Eroare geolocație', e);
     } finally {
       hideLoading();
     }
   });
 };
 
+// Initializare
 const init = () => {
-  // populare istoric și setări
+  // ✅ Restaurează istoric + setare max
   renderHistory(getHistory());
   elements.maxHistoryInput.value = getMaxHistory();
 
-  // event listeners
+  // ▶️ Ascultători
   document.querySelector('#search-form').addEventListener('submit', handleSubmit);
   elements.locationBtn.addEventListener('click', handleLocation);
   elements.historyList.addEventListener('click', handleHistoryClick);
@@ -91,11 +114,23 @@ const init = () => {
   });
 
   elements.maxHistoryInput.addEventListener('change', (e) => {
-    const newMax = parseInt(e.target.value, 10);
-    const trimmed = setMaxHistory(newMax);
+    const max = parseInt(e.target.value, 10);
+    const trimmed = setMaxHistory(max);
     renderHistory(trimmed);
-    logInfo('Max istoric actualizat', newMax);
+    logInfo('Maxim istoric actualizat', max);
+  });
+
+  // ✨ Debounce live input (opțional)
+  const debouncer = createDebouncer(400);
+  elements.cityInput.addEventListener('input', () => {
+    debouncer(() => {
+      const city = getCityInput();
+      if (city.length >= 3) {
+        handleSearchByName(city);
+      }
+    });
   });
 };
 
 init();
+console.timeEnd('app-init');
